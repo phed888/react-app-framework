@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import VoyagerLogo from '../VoyagerLogo/VoyagerLogo.js';
-import './OrionHeader.css';
+import VoyagerLogo from './VoyagerLogo';
 import { Object } from 'core-js';
 
 class OrionHeader extends Component {
