@@ -19,7 +19,6 @@ class OrionHeader extends Component {
   }
   // Render it up!
   render() {
-    console.log(this.props);
     const navItems = Object.keys(this.props.globalNav).map(i => {
       return (
         <li className="mainNavItem" onClick={this.makeActive} key={i}>
