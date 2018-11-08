@@ -1,15 +1,50 @@
 .c3-container {
-  background-color: #eee;
-  border-radius: 8px 8px 0 0;
+  background-color: #eeeeee;
+  border-radius: 10px 10px 0 0;
   position: absolute;
   bottom: 0;
+  width: 100%;
+  height: 100%;
   right: 0;
+  z-index: 100;
+  &.collapsed {
+    height: 50px;
+    width: 250px;
+  }
+  &.expanded {
+    top: 20px;
+    right: 20px;
+    bottom: 0;
+    left: 20px;
+  }
+  &.expanding.transition {
+    transition: transform 0.5s ease-out;
+  }
+  &.collapsing.transition {
+    transition: transform 0.5s ease-in;
+  }
 }
-.c3-contaner-header {
+
+.c3-container-header {
   padding: 16px;
-  background-color: blue;
-}
-h6 {
-  font-size: 16px;
-  font-weight: regular;
+  border-radius: 8px 8px 0 0;
+  background-color: $blue-500;
+  color: $white-1000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__title,
+  &__close {
+    display: flex;
+    align-items: center;
+
+    margin-right: 20px;
+    h6 {
+      margin-right: 5px;
+    }
+  }
+  &__close {
+    margin-right: 0;
+  }
 }
