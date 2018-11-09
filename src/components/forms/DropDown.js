@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import CarrotDown from '../icons/carrot-down';
+import DropDownItem from './DropDownItem';
 
 class DropDown extends Component {
   clickInput = event => {
@@ -10,7 +12,7 @@ class DropDown extends Component {
         textBox.value = '';
       } else {
         clickTarget.add('in-focus');
-        textBox.focus();
+        textBox.value = '- Select -';
       }
     }
   };
@@ -34,6 +36,9 @@ class DropDown extends Component {
           blurredParent.remove('is-dirty');
         }
       }
+    } else if (blurred.value === '- Select -') {
+      blurred.value = '';
+      blurredParent.remove('in-focus');
     } else {
       if (blurredParent.contains('in-focus')) {
         blurredParent.remove('in-focus');
@@ -43,22 +48,29 @@ class DropDown extends Component {
   };
 
   render() {
+    const options = this.props.options;
+    const listItems = options.map(key => {
+      return <DropDownItem itemName={[key]} key={key} />;
+    });
     return (
-      <div className="dropDownContainer">
+      <div className="dropDownContainer" onBlur={this.blurInput}>
         <div
           ref={this.formContainer}
           className={this.props.classy}
           onClick={this.clickInput}
           title={this.props.formLabel}
         >
+          <CarrotDown />
           <label className="formElement__label">{this.props.formLabel}</label>
+          <input
+            type={this.props.inputType}
+            ref={this.childInput}
+            className="formElement__input"
+            onFocus={this.focusInput}
+          />
         </div>
         <div className="formElement__flyOut-container">
-          <ul className="formElement__flyOut">
-            <li className="flyOut__item">Hello</li>
-            <li className="flyOut__item">There</li>
-            <li className="flyOut__item">My Friend</li>
-          </ul>
+          <ul className="formElement__flyOut">{listItems}</ul>
         </div>
       </div>
     );
