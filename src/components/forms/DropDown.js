@@ -3,17 +3,25 @@ import CarrotDown from '../icons/carrot-down';
 import DropDownItem from './DropDownItem';
 
 class DropDown extends Component {
+  state = {
+    isActive: false
+  };
+
   clickInput = event => {
-    const clickTarget = event.target.classList;
-    if (clickTarget.contains('formElement')) {
-      const textBox = event.target.lastChild;
-      if (clickTarget.contains('in-focus')) {
-        clickTarget.remove('in-focus');
-        textBox.value = '';
-      } else {
-        clickTarget.add('in-focus');
-        textBox.value = '- Select -';
-      }
+    const clicked = event.target;
+    this.setState(prevState => ({
+      isActive: !prevState.isActive
+    }));
+    this.toggleFocus(clicked);
+  };
+
+  toggleFocus = element => {
+    console.log(element.classList);
+    if (element.classList.contains('in-focus')) {
+      console.log('blur');
+      element.lastChild.blur();
+    } else {
+      element.lastChild.focus();
     }
   };
 
@@ -56,7 +64,10 @@ class DropDown extends Component {
       <div className="dropDownContainer" onBlur={this.blurInput}>
         <div
           ref={this.formContainer}
-          className={this.props.classy}
+          className={
+            'formElement ' + (this.state.isActive === true ? 'in-focus' : '')
+          }
+          // onClick={this.setState({ isActive: !this.state.isActive })}
           onClick={this.clickInput}
           title={this.props.formLabel}
         >

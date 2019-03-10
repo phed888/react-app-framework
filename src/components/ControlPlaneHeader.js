@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import OrionHeader from './OrionHeader';
+import TravelConnect from './TravelConnect';
+import Hamburger from './icons/Hamburger';
 import { Object } from 'core-js';
 
-class OrionHeader extends Component {
+class ControlPlaneHeader extends Component {
   // Select all items in the parent container of clicked item and remove 'is_active'
   // then add 'is_active' to the clicked item.
   makeActive(event) {
@@ -30,7 +31,8 @@ class OrionHeader extends Component {
     return (
       <div className="activeArea">
         <div className="logoNav">
-          <OrionHeader />
+          <Hamburger />
+          <TravelConnect />
           <ul className="mainNav">{navItems}</ul>
         </div>
       </div>
@@ -41,4 +43,4 @@ class OrionHeader extends Component {
   }
 }
 
-export default OrionHeader;
+export default ControlPlaneHeader;

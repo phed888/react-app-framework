@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OrionHeader from './components/OrionHeader';
+import ControlPlaneHeader from './components/ControlPlaneHeader';
 import './App.scss';
 import GettingStarted from './components/GettingStarted';
 
@@ -7,7 +7,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <OrionHeader globalNav={['Tasks', 'History', 'Statistics', 'Team']} />
+        <ControlPlaneHeader
+          globalNav={['Tasks', 'History', 'Statistics', 'Team']}
+        />
         <GettingStarted />
       </div>
     );

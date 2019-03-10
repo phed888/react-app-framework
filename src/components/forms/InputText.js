@@ -1,47 +1,42 @@
 import React, { Component } from 'react';
 
 class InputText extends Component {
-  formContainer = React.createRef;
-  childInput = React.createRef;
-
-  clickInput = event => {
-    const clickTarget = event.target.classList;
-    if (clickTarget.contains('formElement')) {
-      const textBox = event.target.lastChild;
-      if (clickTarget.contains('in-focus')) {
-        clickTarget.remove('in-focus');
-        textBox.value = '';
-      } else {
-        clickTarget.add('in-focus');
-        textBox.focus();
-      }
-    }
+  state = {
+    isActive: false,
+    isDirty: false,
+    isWrong: false,
+    isDisabled: false
   };
 
-  focusInput = event => {
-    const focused = event.target;
-    const focusedParent = focused.parentElement.classList;
-    if (focusedParent.contains('in-focus')) {
+  clickInput = event => {
+    const clicked = event.target;
+    this.setState(prevState => ({
+      isActive: !prevState.isActive
+    }));
+    this.toggleFocus(clicked);
+  };
+
+  toggleFocus = element => {
+    if (this.state.isActive) {
+      element.lastChild.blur();
     } else {
-      focusedParent.add('in-focus');
+      element.lastChild.focus();
     }
   };
 
   blurInput = event => {
-    var blurred = event.target;
-    var blurredParent = blurred.parentElement.classList;
-    if (blurred.value === '') {
-      if (blurredParent.contains('in-focus')) {
-        blurredParent.remove('in-focus');
-        if (blurredParent.contains('is-dirty')) {
-          blurredParent.remove('is-dirty');
-        }
-      }
+    const blurred = event.target;
+    const dirty = blurred.textContent;
+    this.setState(prevState => ({
+      isActive: !prevState.isActive
+    }));
+    if (dirty) {
+      blurred.blur();
+      this.setState(prevState => ({
+        isDirty: !prevState.isActive
+      }));
     } else {
-      if (blurredParent.contains('in-focus')) {
-        blurredParent.remove('in-focus');
-      }
-      blurredParent.add('is-dirty');
+      blurred.blur();
     }
   };
 
@@ -49,7 +44,9 @@ class InputText extends Component {
     return (
       <div
         ref={this.formContainer}
-        className={this.props.classy}
+        className={
+          'formElement ' + (this.state.isActive === true ? 'in-focus' : '')
+        }
         onClick={this.clickInput}
         title={this.props.formLabel}
       >
